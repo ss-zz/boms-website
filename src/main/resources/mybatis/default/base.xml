@@ -1,0 +1,49 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 基础sql -->
+<mapper namespace="cn.com.sinosoft.tbf.default">
+
+	<!-- 获取列表-用户 -->
+	<select id="User-list"
+		resultType="cn.com.sinosoft.tbf.domain.common.security.UserInfo">
+		SELECT
+		  u.id			userId,
+		  u.login_name	loginName,
+		  u.is_used		state,
+		  u.user_name	name
+		FROM t_user u 
+		where 1=1
+		<if test="userName != null">
+		    AND login_name = #{userName}
+		</if>
+		<if test="passWord != null">
+		    AND password = #{passWord}
+		</if>
+		ORDER BY u.create_time desc
+	</select>
+	
+	<!-- 根据用户id获取角色列表 -->
+	<select id="Role-list-getByUserid"
+		resultType="cn.com.sinosoft.tbf.domain.common.security.RoleInfo">
+		select 
+		  '1' roleId,
+		  '1' roleName 
+		 from dual where 1=2
+	</select>
+	
+	<!-- 根据角色id获取授权列表 -->
+	<select id="Grants-list-getByRoleids"
+		resultType="String">
+		select '1' right_id
+		  from dual where 1=2
+	</select>
+	
+	<!-- 查询所有的用户名 -->
+	<select id="User-loginName" resultType="String">
+		select count(1) as count from 
+		t_user s where s.login_name=#{loginName}
+	</select>
+	
+</mapper>

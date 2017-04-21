@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title></title>
+</head>
+<body>
+	<form action="api/mgr/file/add" method="post" enctype="multipart/form-data">
+		<span class="span">浏览:<input type="file" name="file" /></span>
+		<br />
+		文件描述：<input type="text" name="describe" />
+		<br />
+		<input type="submit" value="上传" />
+	</form>
+</body>
+</html>
