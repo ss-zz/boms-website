@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<title>主页</title>
+	<header th:include="header :: header"></header>
+</head>
+<body>
+	<div>
+		<div th:replace="topmenu :: topmenu"></div>
+		
+		<div class="main-content">
+			主页
+		</div>
+		
+		<div th:replace="footer :: footer"></div>
+		
+	</div>
+</body>
+</html>
