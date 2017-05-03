@@ -99,7 +99,7 @@ public class UserService {
 	 *            用户id
 	 * @return 角色信息
 	 */
-	public List<RoleInfo> getRoleByUserId(String userId) {
+	public List<RoleInfo> getRoleByUserId(Integer userId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
 		return baseDao.queryList(

@@ -15,7 +15,7 @@ import cn.com.sinosoft.tbf.common.util.security.UserUtil;
  */
 @Component("baseDao")
 public class BaseDao extends BaseDaoAbst{
-	
+
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	protected SqlSessionTemplate sqlSessionTemplate;

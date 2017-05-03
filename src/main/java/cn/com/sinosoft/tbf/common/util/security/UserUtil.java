@@ -20,7 +20,7 @@ import cn.com.sinosoft.tbf.domain.common.security.UserInfo;
  */
 @Service
 public class UserUtil {
-	
+
 	/**
 	 * session中存储用户信息
 	 */
@@ -73,7 +73,7 @@ public class UserUtil {
 	 *
 	 * @return
 	 */
-	public String getRequestUserId() {
+	public Integer getRequestUserId() {
 		UserInfo user = getRequestUser();
 		return user != null ? user.getUserId() : null;
 	}

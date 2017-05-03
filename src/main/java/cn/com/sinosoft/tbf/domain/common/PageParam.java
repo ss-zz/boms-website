@@ -10,7 +10,7 @@ package cn.com.sinosoft.tbf.domain.common;
  * @since 2014-10-23
  */
 public class PageParam {
-	
+
 	/**
 	 * 最大每页数据条数
 	 */
@@ -43,10 +43,16 @@ public class PageParam {
 	}
 
 	public PageParam(int page, int rows) {
-		this.page = page;
+		if(page < 0){
+			page = 0;
+		}
+		if(rows < 0){
+			rows = 0;
+		}
 		if(rows > MAX_LIMIT){
 			rows = MAX_LIMIT;
 		}
+		this.page = page;
 		this.rows = rows;
 	}
 

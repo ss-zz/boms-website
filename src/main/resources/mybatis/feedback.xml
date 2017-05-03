@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 意见反馈 -->
+<mapper namespace="cn.com.sinosoft.boms.feekback">
+
+	<!-- 获取意见反馈列表 -->
+	<select id="feekback-list"
+		resultType="cn.com.sinosoft.bomswebsite.model.FeedBackList">
+		SELECT
+		  id,
+		  title,
+		  content,
+		  user_id,
+		  (select real_name from t_user t where t.id = user_id) userRealName,
+		  create_time,
+		  reply_content,
+		  reply_user_id,
+		  (select real_name from t_user t where t.id = reply_user_id) replyUserRealName,
+		  reply_time,
+		  count_up,
+		  count_down
+		FROM t_website_feedback
+		where 1=1
+		ORDER BY create_time desc
+	</select>
+	
+	<!-- 意见反馈添加 -->
+	<insert id="feekback-add" useGeneratedKeys="true" keyProperty="id">
+		insert into t_website_feedback
+			(title, content, user_id)
+		values
+			(#{title}, #{content}, #{userId})
+	</insert>
+	
+</mapper>

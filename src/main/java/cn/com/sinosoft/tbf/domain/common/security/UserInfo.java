@@ -9,22 +9,22 @@ import java.util.List;
  * @since 2016年8月12日
  */
 public class UserInfo {
-	
+
 	/**
 	 * 用户id
 	 */
-	private String userId;
-	
+	private Integer userId;
+
 	/**
 	 * 登录名
 	 */
 	private String loginName;
-	
+
 	/**
 	 * 用户名称
 	 */
 	private String name;
-	
+
 	/**
 	 * 用户状态
 	 */
@@ -34,17 +34,17 @@ public class UserInfo {
 	 * 角色信息
 	 */
 	private List<RoleInfo> roles;
-	
+
 	/**
 	 * 授权信息
 	 */
 	private List<String> grants;
-	
-	public String getUserId() {
+
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

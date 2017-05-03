@@ -117,3 +117,14 @@ body{color: #333;}
 	display: inline-block;
 	margin: 10px;
 }
+/* 通用样式 */
+.full{width: 100%;}
+.full-center{width: 100%; text-align: center;}
+.margin{margin: 10px;}
+.padding{padding: 10px;}
+.btn{
+	display: inline-block;
+	padding: 10px 20px;
+	color: #fff;
+	background-color: #898F9E;
+}

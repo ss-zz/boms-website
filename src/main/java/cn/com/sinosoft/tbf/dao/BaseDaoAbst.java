@@ -51,10 +51,10 @@ public abstract class BaseDaoAbst {
 			if (paramsMap.get(PARAMS_KEY_USERINFO) != null) {
 				return params;
 			}
-			UserUtil userUtilApi = getUserUtil();
-			if (userUtilApi != null) {
+			UserUtil userUtil = getUserUtil();
+			if (userUtil != null) {
 				Map<String, Object> infos = new HashMap<String, Object>();
-				UserInfo userInfo = userUtilApi.getRequestUser();
+				UserInfo userInfo = userUtil.getRequestUser();
 				if (userInfo == null)
 					return params;
 
@@ -62,9 +62,9 @@ public abstract class BaseDaoAbst {
 				infos.put("userId", userInfo.getUserId());
 				// 登录名
 				infos.put("loginName", userInfo.getLoginName());
-				// 用户名
-				infos.put("name", userInfo.getName());
-				
+				// 用户其他信息
+				infos.put("user", userInfo);
+
 				paramsMap.put(PARAMS_KEY_USERINFO, infos);
 			}
 		}
@@ -308,5 +308,6 @@ public abstract class BaseDaoAbst {
 		params = handleParams(params);
 		return queryList(statement, params);
 	}
+
 
 }

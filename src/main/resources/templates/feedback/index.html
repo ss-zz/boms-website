@@ -4,13 +4,67 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<title>意见反馈</title>
-	<header th:include="header :: header"></header>
+	<div th:include="header :: header"></div>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/feedback.css}"/>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/feedback.js}"></script>
 </head>
 <body>
 	<div th:replace="topmenu :: topmenu"></div>
 	
-	<div class="main-content">
-		意见反馈
+	<div class="main-content feedback">
+	
+		<div class="full-center">
+			<div class="btn btn-addfeedback margin">点击提交留言</div>
+		</div>
+		
+		<div class="full-center">
+			总条数：<span th:text="${feedbackData.total}"></span>
+			当前页：<span th:text="${currentPage}"></span>
+			每页数据：<span th:text="${perPageCount}"></span>
+			总页数：<span th:text="${totalPage}"></span>
+			
+			当前页面数据条数：<span th:text="${#lists.size(feedbackData.rows)}"></span>
+		</div>
+		
+		<div class="full-center">
+			<a th:href="@{feedback.html}">首页</a>
+		
+			<a th:href="@{feedback-{page}.html(page=${currentPage - 1})}"
+				th:if="${currentPage} &gt; 1">上一页</a>
+			<a href="javascript: void(0)"
+				th:if="${currentPage} &lt;= 1">上一页</a>
+				
+			<a th:href="@{feedback-{page}.html(page=${currentPage + 1})}"
+				th:if="${currentPage} &lt; ${totalPage}">下一页</a>
+			<a href="javascript: void(0)"
+				th:if="${currentPage} &gt;= ${totalPage}">下一页</a>
+				
+			<a th:href="@{feedback-{page}.html(page=${totalPage})}">尾页</a>
+		</div>
+		
+		<div th:each="item : ${feedbackData.rows}"
+			th:classappend="${itemStat.odd}? 'odd'"
+			class="item" 
+			>
+			<div class="left-zone">
+				<img src="img/header.png" /><br/>
+				<span th:text="${item.userRealName}"></span><br/>
+				<span th:text="${#calendars.format(item.createTime, 'yyyy-MM-dd')}"></span>
+			</div>
+			<div class="right-zone">
+				<div class="title" th:text="${item.title}">
+					标题
+				</div>
+				<div class="content" >
+					<span th:text="${item.content}"></span><br/>
+					<div th:if="${item.replyContent != null}">
+						<span>回复：</span><br/>
+						<span class="reply" th:text="${item.replyContent}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	
 	</div>
 	
 	<div th:replace="footer :: footer"></div>
