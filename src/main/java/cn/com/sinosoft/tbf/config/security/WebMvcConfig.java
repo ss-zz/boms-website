@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -23,7 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import cn.com.sinosoft.tbf.common.util.StringToDateConverter;
-import cn.com.sinosoft.tbf.domain.common.security.Audience;
 
 /**
  * web mvc 配置，不要添加@EnableWebMvc注解
@@ -36,29 +33,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	private RequestMappingHandlerAdapter handlerAdapter;
-
-	@Autowired
-	private Audience audienceEntity;
-
-	// 移动端api安全验证拦截器
-	@Bean
-	public MobileApiSecurityInterceptor mobileApiSecurityInterceptor() {
-		return new MobileApiSecurityInterceptor();
-	}
-
-	// 自定义拦截器
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-
-		// 移动端接口权限拦截器
-		InterceptorRegistration mobileApiInteceptor = registry
-				.addInterceptor(mobileApiSecurityInterceptor());
-		for (String url : audienceEntity.getUrlPatterns()) {
-			mobileApiInteceptor.addPathPatterns(url);
-		}
-
-		super.addInterceptors(registry);
-	}
 
 	// 自定义http json转换
 	@Bean
@@ -76,10 +50,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 						gen.writeString("");
 					}
 				});
-		
+
 		// 忽略绑定失败属性
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
+
 		jsonConverter.setObjectMapper(objectMapper);
 		return jsonConverter;
 	}

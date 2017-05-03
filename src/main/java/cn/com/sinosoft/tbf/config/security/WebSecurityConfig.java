@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -23,42 +24,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationProviderCustom authProvider;
 
-	/**
-	 * 安全配置
-	 *
-	 * 
-	 * @param http
-	 * @throws Exception
-	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
-	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			// 禁用csrf
-			.csrf().disable()
-			// 安全认证
-			.authorizeRequests()
-				// 公共静态资源文件
-				.antMatchers("/static/**").permitAll()
-				.antMatchers("/website_pub/**").permitAll()
-				// 对外公共api
-				.antMatchers("/pubapi/**").permitAll()
-				.anyRequest().authenticated()
+		http.csrf().disable()// 禁用csrf
+			.authorizeRequests()// 安全认证
+				.antMatchers("/forum/**").authenticated()
+				.anyRequest().permitAll()
 			.and()
-				.formLogin()
-				.loginPage("/login").permitAll()
-			.and().logout()
-				.permitAll();
+				.formLogin().loginPage("/login").permitAll()
+			.and()
+				.logout().permitAll();
+	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/js/**", "/css/**", "/img/**");
 	}
 
 	/**
 	 * 认证配置
 	 *
-	 * 
+	 *
 	 * @param auth
 	 * @throws Exception
 	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)
 	 */
+	@Override
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// 自定义认证
