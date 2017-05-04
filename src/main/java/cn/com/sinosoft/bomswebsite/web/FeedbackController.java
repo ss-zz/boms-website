@@ -51,7 +51,7 @@ public class FeedbackController {
 	}
 
 	/**
-	 * 意见反馈首页
+	 * 意见反馈首页-列表分页
 	 *
 	 * @return
 	 */
@@ -79,7 +79,8 @@ public class FeedbackController {
 	 */
 	@GetMapping("feedback/list")
 	@ResponseBody
-	public APIResult<PagingResult<FeedBackList>> getList(Map<String, Object> searchParams, PageParam pageParam) {
+	public APIResult<PagingResult<FeedBackList>> getList(Map<String, Object> searchParams, PageParam pageParam,int page) {
+		System.out.println(page);
 		PagingResult<FeedBackList> result = feedBackService.getFeedbackList(searchParams, pageParam);
 		return new APIResult<PagingResult<FeedBackList>>(result);
 	}

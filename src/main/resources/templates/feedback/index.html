@@ -7,6 +7,8 @@
 	<div th:include="header :: header"></div>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/feedback.css}"/>
 	<script type="text/javascript" th:src="@{/js/modules/feedback/feedback.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/zDialog.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/zDrag.js}"></script>
 </head>
 <body>
 	<div th:replace="topmenu :: topmenu"></div>
@@ -14,7 +16,7 @@
 	<div class="main-content feedback">
 	
 		<div class="full-center">
-			<div class="btn btn-addfeedback margin">点击提交留言</div>
+			<div class="btn btn-addfeedback margin" onclick="open1()">点击提交留言</div>
 		</div>
 		
 		<div class="full-center">
