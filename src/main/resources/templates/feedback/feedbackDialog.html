@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<div th:include="header :: header"></div>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/zDialog.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/zDrag.js}"></script>
+	<script type="text/javascript" th:src="@{/js/modules/feedback/gVerify.js}"></script>
+	
+	
+</head>
+
+<body>
+		<div >
+			称呼<span style="color:red">*</span>: <input id="userName" name="userName" type="" />
+			邮箱:<input id="email" name="email" type="email" />
+			电话或QQ:<input id="contact" name="contact" type=""  /><br>
+			头像:<input type="radio" checked="checked" name="Sex" value="male" />男<input type="radio" name="Sex" value="female" />女<br>
+			软件<span style="color:red">*</span>:<input type="radio" checked="checked" name="sw" value="male" />软件1<input type="radio" name="sw" value="male" />软件2<input type="radio" name="sw" value="male" />软件3<input type="radio"  name="sw" value="male" />软件4<br/>
+			标题<span style="color:red">*</span><br/>
+			 <input id="title" type="text" name="title" style="width:520px;" /><br/>
+			 内容<br/>
+			 <textarea id="content" name="content" rows="10" cols="60" maxlength="500"></textarea>
+			<p style="color:red"> 注:最多输入500字！</p>
+			<div id="v_container" style="width: 200px;height: 50px;"></div>
+			<input type="text" id="code_input" value="" placeholder="请输入验证码"/><button id="my_button" onclick="sub()" >提交</button>
+		</div>
+</body>
+		<script type="text/javascript">
+		var verifyCode = new GVerify("v_container");
+		
+		document.getElementById("my_button").onclick = function(){
+		
+			var userName = document.getElementById("userName").value;
+			var title = document.getElementById("title").value;
+			var res = verifyCode.validate(document.getElementById("code_input").value);
+			if(res){
+				if(userName!="" && title !=""){
+					sub();
+				}else{
+					alert("请补全必填项！");
+				}
+			}else{
+				alert("验证码错误");
+			}
+		}
+		
+		function sub(){
+				var title = $('#title').val();
+				var content = $('#content').val();
+				$.ajax({
+					type:"POST",
+					url: "feedback/add",
+					data: {"title":title,"content":content},
+					success:function(data){
+						
+					}
+				});
+		}
+		
+	</script>
+</html>

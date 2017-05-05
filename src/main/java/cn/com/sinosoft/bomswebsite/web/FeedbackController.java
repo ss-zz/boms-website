@@ -93,11 +93,31 @@ public class FeedbackController {
 	 * @return 新增数据id
 	 */
 	@PostMapping("feedback/add")
-	public APIResult<Integer> addFeedback(@Valid @RequestBody FeedBackAdd feedback, BindingResult errors) {
+	@ResponseBody
+	public APIResult<Integer> addFeedback(@Valid FeedBackAdd feedback, BindingResult errors) {
 		if (errors.hasErrors()) {
 			return new APIResult<Integer>(ResultCode.FAILURE.getCode(), errors);
 		}
 		return new APIResult<Integer>(feedBackService.addFeedback(feedback), "意见反馈添加成功", true);
+	}
+	
+	/**
+	 * 意见反馈-跳转Dialog页
+	 * @return
+	 */
+	@RequestMapping("feedbackDialog.html")
+	public String openDialogFeedback(){
+		return "feedback/feedbackDialog";
+	}
+	/**
+	 * 意见反馈-跳转Dialog页
+	 * @return
+	 */
+	@RequestMapping("addFeedback2")
+	public ModelAndView addFeedback2(){
+		
+		System.out.println(222);
+		return toFeedback();
 	}
 
 }

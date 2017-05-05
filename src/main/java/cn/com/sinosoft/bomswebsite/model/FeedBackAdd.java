@@ -1,5 +1,8 @@
 package cn.com.sinosoft.bomswebsite.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Required;
+
 /**
  * 意见反馈信息-添加
  *
@@ -13,10 +16,12 @@ public class FeedBackAdd {
 	/**
 	 * 反馈标题
 	 */
+	@NotEmpty
 	private String title;
 	/**
 	 * 反馈内容
 	 */
+	@NotEmpty
 	private String content;
 	/**
 	 * 创建用户
